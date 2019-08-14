@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+    <title></title>
+    <script type="text/javascript" src="../ext-3.3.0/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="../ext-3.3.0/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="../ext-3.3.0/resources/css/ext-all.css" />
+    <style>
+        .x-panel-body {
+            font-size: 20px;
+        }
+
+        body {
+            background: url(./bingLogo.jpg);
+        }
+
+        .bingbody {
+            margin-left: 90px;
+            margin-top: 150px;
+        }
+
+        .searchcss {
+            position: relative;
+            top: 29px;
+            left: -45px;
+        }
+
+        .boximgcss {
+            position: relative;
+            top: 14px;
+        }
+
+        element.style {
+            width: 111px;
+        }
+
+        .text-feild {
+            border: 0px;
+            font-size: 16px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        Ext.onReady(function () {
+            var boximg = new Ext.BoxComponent({
+                xtype: 'box',
+                cls: 'boximgcss',
+                autoEl: {
+                    tag: 'img',
+                    src: './bing.png'
+                }
+            });
+            var searchimg = new Ext.BoxComponent({
+                xtype: 'box',
+                id: 'search',
+                cls: 'searchcss',
+                autoEl: {
+                    tag: 'img',
+                    src: './search.png'
+                }
+            });
+            var tabPanel = new Ext.TabPanel({
+                height: 70,
+                width: 530,
+                style: "margin:0px",
+                plain: true
+            });
+            var inerField = new Ext.form.TextField({
+                id: 'iner',
+                height: 40,
+                width: 430,
+                cls: 'text-feild'
+            })
+            var outField = new Ext.form.TextField({
+                id: 'out',
+                height: 40,
+                width: 430,
+                cls: 'text-feild'
+            })
+            tabPanel.add({
+                title: '国内版',
+                items: [inerField]
+            }),
+                tabPanel.add({
+                    title: '国际版',
+                    items: [outField]
+                })
+            tabPanel.activate(0);
+            var containerBody = new Ext.Container({
+                layout: 'column',
+                renderTo: 'bingbody',
+                cls: 'bingbody',
+                items: [
+                    boximg, tabPanel, searchimg
+                ]
+            });
+            Ext.get('ext-gen13').remove();
+            Ext.get('search').on('click', function () {
+                var inerval = Ext.get('iner').dom.value;
+                if (inerval != null) {
+                    window.location.href = 'https://cn.bing.com//search?q=' + inerval;
+                } else {
+                    var outval = Ext.get('out').dom.value;
+                    console.log(outval);
+                    window.location.href = 'https://cn.bing.com//search?q=' + outval;
+                }
+            })
+        })
+    </script>
+</head>
+
+
+<body>
+    <div>
+        <div id="bingbody"></div>
+    </div>
+
+</body>
+
+
+</html>
